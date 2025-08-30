@@ -1,1 +1,23 @@
+version: '3.8'
 
+services:
+  api:
+    build: .
+    container_name: epi_inventory_api
+    ports:
+      - 8000:80
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:6.0
+    container_name: epi_mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
